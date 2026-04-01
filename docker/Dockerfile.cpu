@@ -53,6 +53,8 @@ ENV PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL}
 ENV UV_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL}
 ENV UV_INDEX_STRATEGY="unsafe-best-match"
 ENV UV_LINK_MODE="copy"
+ENV CMAKE_BUILD_PARALLEL_LEVEL=2
+ENV MAX_JOBS=2
 
 # Copy requirements files for installation
 COPY requirements/common.txt requirements/common.txt
@@ -83,7 +85,7 @@ RUN echo 'ulimit -c 0' >> ~/.bashrc
 ######################### BUILD IMAGE #########################
 FROM base AS vllm-build
 
-ARG max_jobs=32
+ARG max_jobs=2
 ENV MAX_JOBS=${max_jobs}
 
 ARG GIT_REPO_CHECK=0
